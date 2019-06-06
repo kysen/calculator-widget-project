@@ -5,20 +5,28 @@ const Buttons = props => {
   const ops = ["/", "*", "-", "+", "="];
   const oth = ["AC", "+/-", "%"];
 
-  const digitWrapper = (clas, arr) => {
+  const otherButtonWrapper = () => {
     return (
-      <div className={`btns ${clas}s`}>
-        {arr.map(digit => {
-          return <div className={`btn ${clas} btn-${digit}`}>{digit}</div>;
+      <div className={`btns oth-btns`}>
+        {oth.map(digit => {
+          return (
+            <div
+              onClick={() => {
+                props.handleOtherButtons(digit);
+              }}
+              className={"btn oth-btn"}
+            >
+              {digit}
+            </div>
+          );
         })}
       </div>
     );
   };
-
-  const numWrapper = (clas, arr) => {
+  const numWrapper = () => {
     return (
       <div className={`btns num-btns`}>
-        {arr.map(digit => {
+        {nums.map(digit => {
           return (
             <div
               onClick={() => {
@@ -34,13 +42,32 @@ const Buttons = props => {
     );
   };
 
+  const opWrapper = () => {
+    return (
+      <div className={`btns op-btns`}>
+        {ops.map(digit => {
+          return (
+            <div
+              onClick={() => {
+                props.handleClick(digit);
+              }}
+              className={`btn op-btn btn-${digit}`}
+            >
+              {digit}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="Buttons">
       <div className="left">
-        {digitWrapper("oth-btn", oth)}
-        {numWrapper("num-btn", nums)}
+        {otherButtonWrapper()}
+        {numWrapper()}
       </div>
-      <div className="right">{digitWrapper("op-btn", ops)}</div>
+      <div className="right">{opWrapper()}</div>
     </div>
   );
 };
