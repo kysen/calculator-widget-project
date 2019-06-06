@@ -9,36 +9,35 @@ import Input from "./input";
 import "./styles/main.scss";
 
 const Calculator = () => {
-  // const [input, addInput] = useState("");
-
-  const [input, addInput] = React.useState([]);
-
-  const ops = [
-    ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-    ["/", "*", "-", "+", "="],
-    ["AC", "+/-", "%"]
-  ];
+  const [input, addInput] = React.useState("");
 
   const handleClick = e => {
-    addInput([...input, e]);
+    if (e === "=") {
+      console.log(e);
+    } else {
+      addInput(input.concat(e));
+    }
   };
 
-  const renderButtons = () => {
-    return ops.map(row => {
-      return (
-        <div className="digit">
-          {row.map(digit => {
-            return digit;
-          })}
-        </div>
-      );
-    });
+  const handleOtherButtons = e => {
+    if (e === "AC") {
+      addInput("");
+    } else if (e === "+/-") {
+      addInput(input * -1);
+    } else if (e === "%") {
+      addInput(input / 100);
+    } else {
+      console.log("error");
+    }
   };
 
   return (
     <div className="container">
       <Input input={input} />
-      <Buttons handleClick={handleClick} renderButtons={renderButtons()} />
+      <Buttons
+        handleClick={handleClick}
+        handleOtherButtons={handleOtherButtons}
+      />
     </div>
   );
 };
